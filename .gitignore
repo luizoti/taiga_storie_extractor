@@ -2,5 +2,6 @@ config.json
 *.xlsx
 *.zip
 *.exe
+*.xlsx#
 
 /build
