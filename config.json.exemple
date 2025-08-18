@@ -1,0 +1,7 @@
+{
+  "logLevel": "INFO",
+  "username": "seu_user_name",
+  "password": "sua_senha",
+  "extractAfter": "2025/08/06",
+  "apiBaseUrl": "https://your_taiga.com.br/api/v1"
+}
