@@ -26,24 +26,27 @@ func ExportMergedComments(
 
 	// Cabeçalhos atualizados com todos os campos
 	headers := []string{
-		"Projeto ID",
-		"Projeto Nome",
-		"Projeto Slug",
-		"Projeto Descrição",
 		"Projeto Criado em",
 		"Projeto Modificado em",
-		//"Projeto CSV UUID",
-		"História ID", "História Ref",
-		"História Nome",
+
 		"História Criado em",
 		"História Modificado em",
 		"História Concluída em",
 		"História Data Limite",
+
+		"Comentário Criado em",
+
+		"Projeto ID",
+		"Projeto Nome",
+		"Projeto Slug",
+		"Projeto Descrição",
+		//"Projeto CSV UUID",
+		"História ID", "História Ref",
+		"História Nome",
 		"História Motivo da Data Limite",
 		"História Status da Data Limite",
 		"História Comentário Inicial",
 		"Comentário ID",
-		"Comentário Criado em",
 		"Comentário Texto",
 		"Comentário HTML",
 	}
@@ -55,27 +58,30 @@ func ExportMergedComments(
 		comments := storyComments[story.ID]
 		for _, comment := range comments {
 			row := []string{
+				string(project.CreatedDate),
+				string(project.ModifiedDate),
+
+				string(story.CreatedDate),
+				string(story.ModifiedDate),
+				string(story.FinishDate),
+				string(story.DueDate),
+
+				string(comment.CreatedDate),
+
 				strconv.Itoa(project.ID),
 				project.Name,
 				project.Slug,
 				project.Description,
-				project.CreatedDate,
-				project.ModifiedDate,
 				//project.CsvUUID,
 
 				strconv.Itoa(story.ID),
 				strconv.Itoa(story.Ref),
 				story.Name,
-				story.CreatedDate,
-				story.ModifiedDate,
-				story.FinishDate,
-				story.DueDate,
 				story.DueDateReason,
 				story.DueDateStatus,
 				story.Comment,
 
 				comment.UuId,
-				comment.CreatedDate,
 				comment.Comment,
 				comment.CommentHtml,
 			}
