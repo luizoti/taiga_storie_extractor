@@ -1,0 +1,6 @@
+config.json
+*.xlsx
+*.zip
+*.exe
+
+/build
