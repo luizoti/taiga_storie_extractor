@@ -10,14 +10,18 @@ import (
 	"taiga_storie_extractor/internal/api"
 	"taiga_storie_extractor/internal/excel"
 	"taiga_storie_extractor/internal/structs"
+	"taiga_storie_extractor/internal/versioning"
 	"time"
 )
 
 func main() {
+	fmt.Printf("Application: %s\n", versioning.AppName)
+	fmt.Printf("Version	  : %s\n", versioning.Version)
+	fmt.Println()
 	auth := api.GetToken()
 	headers := api.GetAuthenticatedHeaders(func() structs.AuthResponse { return auth })
 	fmt.Println("Lista de projetos:")
-	// Obter todos os projetos e filtrar ID 13
+
 	projects := api.GetAllProjects(headers)
 
 	for _, project := range projects {
