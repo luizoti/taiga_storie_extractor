@@ -3,5 +3,7 @@ config.json
 *.zip
 *.exe
 *.xlsx#
+*.baseline
+/.secrets.baseline
 
 /build
