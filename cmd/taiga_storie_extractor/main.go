@@ -54,7 +54,6 @@ func main() {
 		fmt.Printf("ERROR: O projeto com ID: %d não existe, vamos recomeçar.\n", selectedProjectID)
 		main()
 	}
-	// Buscar histórias do projeto
 	stories := api.GetAllStoriesFromBoard(headers, selectedProjectID)
 
 	// Buscar comentários de cada história
@@ -66,17 +65,39 @@ func main() {
 		fmt.Printf("Card processado: %d - %s\n", story.ID, story.Name)
 	}
 	now := time.Now()
-	// Gerar planilha
+
 	selectedProject := projects[selectedProjectID]
 	projectSlug := projects[selectedProjectID].Slug
-	err := excel.ExportMergedComments(
-		selectedProject,
-		stories,
-		storyCommentsMap,
-		customFieldsMap,
-		filepath.Join(projectSlug, fmt.Sprintf("%s_relatorio_taiga_%s.xlsx", now.Format("2006-01-02_15-04-05"), projectSlug)))
-	if err != nil {
-		panic(err)
+	reader = bufio.NewReader(os.Stdin)
+	fmt.Println()
+	fmt.Println("Formato de relatório:")
+	fmt.Println("\t 1. Comments")
+	fmt.Println("\t 2. Historias")
+	fmt.Print("Escolha o formato: ")
+	userInputType, userInputError := reader.ReadString('\n')
+
+	switch userInputType {
+	case "1\n":
+		err := excel.ExportMergedComments(
+			selectedProject,
+			stories,
+			storyCommentsMap,
+			customFieldsMap,
+			filepath.Join(projectSlug, fmt.Sprintf("%s_relatorio_taiga_%s.xlsx", now.Format("2006-01-02_15-04-05"), projectSlug)))
+
+		if err != nil {
+			panic(err)
+		}
+	case "2\n":
+		err := excel.ExportStoriesOnly(
+			selectedProject,
+			stories,
+			customFieldsMap,
+			filepath.Join(projectSlug, fmt.Sprintf("%s_relatorio_taiga_%s.xlsx", now.Format("2006-01-02_15-04-05"), projectSlug)))
+
+		if err != nil {
+			panic(err)
+		}
 	}
 
 }
